@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yilong Xiong Personal Website</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a href="../../index.html"><img src="images/Avatar.png" alt="CSE 135"/></a>
+        <div class="nav-links">
+          <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+          </ul>
+        </div>
+        <button class="hamburger">
+          <div class="bar"></div>
+        </button>
+      </nav>
+    </header>
+
+    <div class="mobile-nav">
+      <a href="index.html">HOME</a>
+      <a href="about.html">ABOUT</a>
+      <a href="contact.html">CONTACT</a>
+    </div>
+
+    <main class="text-box">
+      <h1>Contact Me</h1>
+      <form
+        class="contact-form"
+        action="mailto:arthur_world@outlook.com"
+        method="post"
+        enctype="text/plain"
+      > <fieldset>
+          <legend id="contact-form-border">Contact Form</legend>
+          <input type="text" name="email" placeholder="Email: " /><br />
+          <input
+            type="text"
+            name="subject"
+            placeholder="Message Subject: "
+          /><br />
+          <textarea
+            rows="6"
+            cols="42"
+            type="text"
+            name="message"
+            placeholder="Message: "
+          ></textarea
+          ><br />
+          <input type="submit" value="Send" />
+        </fieldset>
+      </form>
+    </main>
+  </body>
+</html>
