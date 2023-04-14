@@ -1,0 +1,233 @@
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing:border-box;
+}
+body{
+    font-size:16px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+    background-color:rgb(227, 236, 253);
+    
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(20, 30, 48);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100px;
+    padding-right:20px;
+    z-index: 1000;
+    position:fixed;
+    width: 100%;
+}
+.logo{
+    color:rgb(227, 236, 253);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 25px;
+}
+.navlinks{
+    display: flex;
+    justify-content: space-around;
+    width:30%;
+}
+.navlinks li{
+    list-style:none;
+}
+.navlinks a{
+    color:rgb(227, 236, 253);
+    text-decoration: none;
+    letter-spacing:2px;
+    font-size: 14px;
+    font-weight:bold;
+}
+.navlinks a:hover{
+    color:rgb(197, 114, 114);
+}
+.lines{
+    cursor:pointer;
+}
+.lines div{
+    width:30px;
+    height:3px;
+    background-color: rgb(227, 236, 253);
+    margin:4px;
+}
+.navlinks-active{
+    position: relative;
+    background-color: rgb(20, 30, 48);
+    flex-direction: column;
+    align-items: center;
+    transition: transfrom 1s ease-in;
+}
+.home{
+    background-image: url('bg.jpg');
+    height: 800px;
+    width:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    top: 100px;
+}
+.home-text{
+    letter-spacing: 3px;
+    text-align:center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+.home h1{
+    font-size: 40px;
+    letter-spacing: 4px;
+    font-weight: 100;
+}
+.home h5{
+    font-size: 20px;
+    letter-spacing: 3px;
+    font-weight: 100;
+}
+.home p{
+    text-align: justify;
+}
+.me{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top:100px;
+}
+.left img{
+    height:600px;
+    width:500px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+.right{
+    width:50%;
+    height:fit-content;
+}
+.right h1{
+    letter-spacing: 3px;
+    font-size:1.8em;
+}
+.table-content{
+    background-color: white;
+    border-collapse:collapse;
+    margin: 25px 0;
+    min-width: 600px;
+    border-radius: 8px 8px 8px 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    
+}
+.table-content tbody{
+    font-size:0.5cm;
+}
+.table-content thead{
+    font-size:0.6cm;
+}
+.table-content thead tr{
+    background-color: rgb(20, 30, 48);
+    color: rgb(205, 214, 231);
+    text-align: left;
+    font-weight: bold;
+}
+.table-content th, .table-content td{
+    padding: 20px 30px;
+}
+.table-content tbody tr:nth-of-type(even){
+    background-color:rgb(205, 214, 231);
+}
+.skill{
+    background-color: rgb(227, 236, 253);
+    position: relative;
+    padding-top:100px;
+    
+}
+.skill h2{
+    font-size:1.8em;
+    margin-top: 50px;
+    letter-spacing: 1px;
+}
+.skill .skill-left{
+    margin-left:10%;
+    position: relative;
+    margin-left: 60px auto;
+    width: 500px;
+}
+.skill .skill-right{
+    margin-left:10%;
+    position: relative;
+    margin-left: 60px auto;
+    width: 500px;
+}
+.bar{
+    background: rgb(205, 214, 231);
+    display: block;
+    height: 10px;
+    border-radius:5px;
+    overflow:hidden;
+}
+.bar span{
+    height: 20px;
+    float:left;
+}
+.JAVA{
+    width:85%;
+    background-color:darkgreen;
+}
+.Bash{
+    width:20%;
+    background-color: darkseagreen;
+}
+.HTML{
+    width: 65%;
+    background-color:darkcyan;
+}
+.R{
+    width:40%;
+    background-color: darkseagreen;
+}
+.Python{
+    width:40%;
+    background-color: darkseagreen;
+}
+.C{
+    width:50%;
+    background-color: darkcyan;
+}
+.Mandarin{
+    width:95%;
+    background-color:darkcyan;
+}
+.English{
+    width:85%;
+    background-color:darkgreen;
+}
+.Photoshop{
+    width:40%;
+    background-color:darkseagreen;
+}
+.Xiumi{
+    width:80%;
+    background-color: darkcyan;
+}
+.message{
+    margin-left: 10%;
+    padding-left: 20%;
+}
+.bottom{
+    display:flex;
+    text-align:center;
+    font-size: 12px;
+    background-color: rgb(20, 30, 48);
+    color:rgba(255, 255, 255, 0.3);
+    position: relative;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 50%;
+}
