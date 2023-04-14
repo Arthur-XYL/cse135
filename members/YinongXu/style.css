@@ -93,27 +93,6 @@ nav{
 .home p{
     text-align: justify;
 }
-.me{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding-top:100px;
-}
-.left img{
-    height:600px;
-    width:500px;
-    border-radius: 15px;
-    object-fit: cover;
-}
-.right{
-    width:50%;
-    height:fit-content;
-}
-.right h1{
-    letter-spacing: 3px;
-    font-size:1.8em;
-}
 .table-content{
     background-color: white;
     border-collapse:collapse;
@@ -122,7 +101,6 @@ nav{
     border-radius: 8px 8px 8px 8px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    
 }
 .table-content tbody{
     font-size:0.5cm;
