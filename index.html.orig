@@ -11,8 +11,12 @@
   <body>
     <nav>
       <h1>CSE 135</h1>
+<<<<<<< HEAD
+      <h2>Github Deployment Successful?? trying sth locally</h2>
+=======
+      <h2>Github Deployment Successful?? Yes</h2>
+>>>>>>> 6dc00307298682142c2549f617d0616adeb24421
       <div class="nav-links">
-        <h4>team members</h4>
         <ul>
           <li><a href="members/yilongxiong/index.html">Yilong Xiong</a></li>
           <li><a href="members/YinongXu/index.html">Yinong Xu</a></li>
@@ -20,16 +24,6 @@
         </ul>
       </div>
     </nav>
-    <div class="Homework">
-      <h3><b>Homework 1</b></h3>
-      <ul>
-        <li>PHP</li>
-        <li>Node</li>
-        <li>Analytics</li>
-      </ul>
-      <h3><b>Homework 2</b></h3>
-      <p>TBD</p>
-    </div>
 
     <main></main>
     <footer></footer>
