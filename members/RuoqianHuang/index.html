@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ruoqian's Portfolio</title>
+    <meta name="author" content="Ruoqian Huang">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://octodex.github.com/images/minion.png">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLD2WPQ9HC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-GLD2WPQ9HC');
+  </script>
+  <body>
+    <section class="top-nav">
+        <input id="menu-toggle" type="checkbox" />
+        <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+      </label>
+      <ul class="menu">
+        <li><a href="#bio">BIO/EDUCATION</a></li>
+        <li><a href="#interests">INTERESTS</a></li>
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="styledcrud.html">BLOGS</a></li>
+      </ul>
+    </section>
+    <main>
+    <header>
+    <img src="Ruoqian.jpg" alt="me">
+    <h1>RUOQIAN HUANG</h1>
+    <h2>Getting to know me!</h2>
+    <h3>From Shenzhen, China</h3>
+    <canvas id="myLogo">Logo for my website</canvas>
+    <script>
+        var c = document.getElementById("myLogo");
+        var logo = c.getContext("2d");
+        logo.fillStyle = "rgb(114, 219, 251)";
+        logo.fillRect(50, 50, 100, 100);
+    </script>
+    </header>
+    <hr>
+    <section id="bio">
+        <h4>BIO/EDUCATION</h4>
+        <p class="reveal">A Math-Computer Science major student from UCSD and would graduate in 2024. </p>
+        <a href="https://ucsd.edu/" class="reveal">
+            <img src="giphy.gif" alt="UCSD" height="200" width="200">
+        </a>
+    </section>
+    <fieldset class="reveal">
+        <p>My Skills: </p>
+        <input type="checkbox" id="c" name="language" value="C" checked>
+        <label for="c">C</label>
+        <input type="checkbox" id="java" name="language" value="Java" checked>
+        <label for="java">Java</label>
+        <input type="checkbox" id="c++" name="language" value="C++" checked>
+        <label for="c++">C++</label>
+        <input type="checkbox" id="python" name="language" value="Python" checked>
+        <label for="python">Python</label>
+        <input type="checkbox" id="javascript" name="language" value="Javascript" checked>
+        <label for="python">Javascript</label>
+        <input type="checkbox" id="css" name="language" value="CSS" checked>
+        <label for="python">CSS</label>
+        <input type="checkbox" id="html" name="language" value="Html" checked>
+        <label for="python">HTML</label>
+    </fieldset>
+    
+    <hr>
+    <section id="interests" class="reveal">
+        <h4>INTERESTS</h4>
+        <div class="row">
+            <div class="column">
+              <img src="sports.jpg" alt="Sports" style="width:100%">
+              <div class="textOnTop">Sports</div>
+            </div>
+            <div class="column">
+              <img src="band.jpg" alt="Music" style="width:100%">
+              <div class="textOnTop">Music</div>
+            </div>
+            <div class="column">
+              <img src="Italy.jpg" alt="Travel" style="width:100%">
+              <div class="textOnTop">Travel</div>
+            </div>
+        </div>
+        <br>
+    </section>
+    <hr>
+    <section id="projects">
+        <h4>PROJECTS</h4>
+        <ol class="reveal">
+            <li>Personal website</li>
+            <li>Group project: TO-DO List Web App</li>
+        </ol>
+        <iframe src="https://cse110-fa22-group26.github.io/cse110-fa22-group26/source/welcomePage.html" width="800"  height="500" class="reveal"></iframe>
+        <video src="./video.mp4" controls class="reveal"></video>
+        <p class="reveal"><i>(This is only the beginning of the video. Contact me if you are interested in this project.)</i></p>
+    </section>
+    <hr>
+    <template>
+        <h4>Template</h4>
+    </template>
+    <h4>Contact Information</h4>
+    </main>
+    <footer>
+        <p><i>Email: ruoqianhuang@gmail.com</i></p>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>

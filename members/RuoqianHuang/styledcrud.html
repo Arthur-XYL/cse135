@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="author" content="Ruoqian Huang">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      body {
+        /* Custom Fonts */
+        font-size: 17px;
+        background: linear-gradient(-45deg, #f0bfb0, #e8b5c9, #acd5e4, #8aecd5);
+        max-width: 800px;
+        margin: auto;
+      }
+
+      input[type=text] {
+        width:90%;
+        padding:10px;
+        margin:10px 0; 
+        border-radius:15px;
+        border:0;
+        box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+      }
+
+      input[type=date] {
+        width:90%;
+        padding:10px;
+        margin:10px 0; 
+        border-radius:15px;
+        border:0;
+        box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+      }
+
+      textarea {
+        padding:10px;
+        margin:10px 0; 
+        width:90%;
+        resize: vertical;
+        padding:15px;
+        border-radius:15px;
+        border:0;
+        box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+        height:150px;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #d0edf4;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+        text-align: center;
+      }
+
+      .modal-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .modal-buttons button {
+        margin: 5px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button[type="submit"] {
+        background-color: #64c0ee;
+        color: rgb(211, 240, 251);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 15px;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 6px #999;
+      }
+
+      button[type="submit"]:hover {background-color: #79c8f3}
+
+      button[type="submit"]:active {
+        background-color: #79c8f3;
+        box-shadow: 0 5px #cdcccc;
+        transform: translateY(4px);
+      }
+
+      .modal-buttons #update-edit, .modal-buttons #delete-ok{
+        background-color: #64c8e0;
+        color: #fff;
+      }
+
+      .modal-buttons #cancel-edit, .modal-buttons #delete-cancel {
+        background-color: #bbb;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLD2WPQ9HC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-GLD2WPQ9HC');
+  </script>
+  <body>
+    <h1>My Blog</h1>
+    <form>
+      <input type="text" id="title" placeholder="Enter Title" required>
+      <br>
+      <input type="date" id="date" placeholder="Enter Date" required>
+      <br>
+      <textarea id="summary" placeholder="Enter Summary" required></textarea>
+      <br>
+      <button type="submit" id="add-btn">Add</button>
+    </form>
+    <dialog id="confirm-delete" class="modal">
+      <div class="modal-content">
+        <p>Are you sure you want to delete?</p>
+        <div class="modal-buttons">
+          <button id="delete-ok">OK</button>
+          <button id="delete-cancel">Cancel</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="edit-post" class="modal">
+      <div class="modal-content">
+        <h2>Edit Post</h2>
+        <form>
+          <label for="edit-title">Title:</label>
+          <input type="text" id="edit-title" name="edit-title">
+          <br>
+          <label for="edit-date">Date:</label>
+          <input type="date" id="edit-date" name="edit-date">
+          <br>
+          <label for="edit-summary">Summary:</label>
+          <textarea id="edit-summary" name="edit-summary"></textarea>
+          
+          <div class="modal-buttons">
+            <button id="update-edit">Update</button>
+            <button id="cancel-edit">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </dialog>    
+    <hr>
+    <div id="posts-list"></div>
+    <script src="styledblog.js"></script>
+  </body>
+</html>
