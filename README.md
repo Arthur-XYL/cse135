@@ -8,7 +8,7 @@ After compression, the response header contains 'Content-Encoding: gzip'.
 Part 3 Step 6: 
 1. Install the mod_security module
 2. Enable it by running sudo a2enmod security2
-3. Add the following lines to /etc/apache2/apache2.conf:
-   ServerTokens Full
+3. Add the following lines to /etc/apache2/apache2.conf:\
+   ServerTokens Full\
    SecServerSignature “CSE135 Server”
 4. restart Apache to apply the changes
