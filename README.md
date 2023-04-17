@@ -1,8 +1,19 @@
 # cse135
-username: Emily    or    file3.4
-Password: Spring2023
+Names of all members: Ruoqian Huang, Yilong Xiong, Yinong Xu
 
-Part 3 Step 5: 
+Password for user "grader" on your Apache server: 
+
+
+Link to site: https://cse135.cloud/
+
+Username/password info for logging into the site:
+- username: Emily    or    file3.4
+- Password: Spring2023
+
+Deployment setup description: 
+
+
+Summary of changes to HTML file in DevTools after compression: 
 After compression, the response header contains 'Content-Encoding: gzip'.
 
 Part 3 Step 6: 
