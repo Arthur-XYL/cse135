@@ -3,10 +3,9 @@
 IMPORTANT: please let Shubham Kumar to grade the work, I have put his public key under the grader's account so he is the one that can login.
 IP address: 24.199.124.95
 Grader username: grader
+Password for user "grader" on your Apache server: 123456
 
 Names of all members: Ruoqian Huang, Yilong Xiong, Yinong Xu
-
-Password for user "grader" on your Apache server: 123456
 
 Link to site: https://cse135.cloud/
 
@@ -17,19 +16,15 @@ Username/password info for logging into the site:
 
 Deployment setup description:
 
-Summary of changes to HTML file in DevTools after compression:
-After compression, the response header contains 'Content-Encoding: gzip'.
-
-Part 2 Deploy from github
-
 1. Go to github -> action
 2. set up a workflow myself
 3. Deploy vs sftp and put user's information
 4. create a github secret and put the user's private key there
 5. commit
 
-Part 3
-Step 5: The size value under the network tab becomes lower and the time becomes faster. The content-encoding type in the response header also shows gzip, showing that it is encoded by Gzip.
+Summary of changes to HTML file in DevTools after compression:
+After compression, the response header contains 'Content-Encoding: gzip'. The size value under the network tab becomes lower and the time becomes faster.
+
 Step 6:
 
 1. Install the mod_security module
