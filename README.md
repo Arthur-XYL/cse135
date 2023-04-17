@@ -9,6 +9,12 @@ Names of all members: Ruoqian Huang, Yilong Xiong, Yinong Xu
 
 Link to site: https://cse135.cloud/
 
+robots.txt: https://cse135.cloud/robots.txt
+
+PHP: https://cse135.cloud/hello.php
+
+GoAccess report: https://cse135.cloud/report.html
+
 Username/password info for logging into the site:
 
 - username: Emily or file3.4
