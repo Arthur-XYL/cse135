@@ -3,11 +3,10 @@
 IMPORTANT: please let Shubham Kumar to grade the work, I have put his public key under the grader's account so he is the one that can login.
 IP address: 24.199.124.95
 Grader username: grader
-password (probably not needed): 123456
 
 Names of all members: Ruoqian Huang, Yilong Xiong, Yinong Xu
 
-Password for user "grader" on your Apache server:
+Password for user "grader" on your Apache server: 123456
 
 Link to site: https://cse135.cloud/
 
