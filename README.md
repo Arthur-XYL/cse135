@@ -29,7 +29,7 @@ Part 2 Deploy from github
 5. commit
 
 Part 3
-Step 5: The size value under the network tab becomes lower.
+Step 5: The size value under the network tab becomes lower and the time becomes faster. The content-encoding type in the response header also shows gzip, showing that it is encoded by Gzip.
 Step 6:
 
 1. Install the mod_security module
