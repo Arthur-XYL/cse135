@@ -3,9 +3,9 @@
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('America/Los_Angeles'); 
 
-echo "Arthur Hello World<br>";
-echo "This page was generated with the PHP programming language<br>";
-echo "Current Time: " . date('Y-m-d') . "<br>";
+echo "<h1>Arthur Hello World</h1><br>";
+echo "<p>This page was generated with the PHP programming language</p><br>";
+echo "<p>Current Time: " . date('Y-m-d') . "</p><br>";
 
 if (!empty($_SERVER['REMOTE_ADDR'])) {
     $ip = $_SERVER['REMOTE_ADDR'];
@@ -13,5 +13,5 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     $ip = "Unknown";
 }
 
-echo "Your IP Address: " . $ip;
+echo "<p>Your IP Address: " . $ip . "</p>";
 ?>
