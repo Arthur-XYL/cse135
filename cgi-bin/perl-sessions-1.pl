@@ -1,15 +1,17 @@
 #!/usr/bin/perl
+use strict;
+use warnings;
 use CGI;
 
 # Create a new Perl Session
 use CGI::Session;
-$session = new CGI::Session("driver:File", undef, {Directory=>"/tmp"});
+my $session = new CGI::Session("driver:File", undef, {Directory=>"/tmp"});
 
 # Create CGI Object
-$cgi = CGI->new;
+my $cgi = CGI->new;
 
 # Create a new Cookie from the Session ID
-$cookie = $cgi->cookie(CGISESSID => $session->id);
+my $cookie = $cgi->cookie(CGISESSID => $session->id);
 print $cgi->header( -cookie=>$cookie );
 
 #Store Data in that Perl Session
