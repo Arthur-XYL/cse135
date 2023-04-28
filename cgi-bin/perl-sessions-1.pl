@@ -9,7 +9,7 @@ $session = new CGI::Session("driver:File", undef, {Directory=>"/tmp"});
 $cgi = CGI->new;
 
 # Create a new Cookie from the Session ID
-$cookie = $cgi->cookie(CGISESSID => $session->id);
+my $cookie = $cgi->cookie(CGISESSID => $session->id);
 print $cgi->header( -cookie=>$cookie );
 
 #Store Data in that Perl Session
