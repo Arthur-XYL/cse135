@@ -17,7 +17,7 @@ int main(int argc, char **argv, char **envp)
 
   if (getenv("HTTP_COOKIE") != NULL && strcmp(getenv("HTTP_COOKIE"), "destroyed"))
   {
-    printf("<tr><td>Cookie:</td><td>%s</td></tr>\n", getenv("HTTP_COOKIE"));
+    printf("<tr><td>Cookie:</td><td>%s</td></tr>\n",getenv("HTTP_COOKIE"));
   }
   else
   {
