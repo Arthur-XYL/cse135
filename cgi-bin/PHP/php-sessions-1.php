@@ -26,7 +26,7 @@ if ($name) {
 echo "<br/><br/>";
 echo "<a href=\"/cgi-bin/PHP/php-sessions-2.php\">Session Page 2</a><br/>";
 echo "<a href=\"/cgi-forms/php-cgiform.html\">PHP CGI Form</a><br />";
-echo "<form style=\"margin-top:30px\" action=\"/php/php-destroy-session.php\" method=\"get\">";
+echo "<form style=\"margin-top:30px\" action=\"/cgi-bin/PHP/php-destroy-session.php\" method=\"get\">";
 echo "<button type=\"submit\">Destroy Session</button>";
 echo "</form>";
 
