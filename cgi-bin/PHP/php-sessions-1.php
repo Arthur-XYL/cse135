@@ -2,10 +2,8 @@
 session_start();
 
 // Store Data in the PHP Session
-if (isset($_POST['username'])) {
+if (!isset($_SESSION['username']) && isset($_POST['username'])) {
     $_SESSION['username'] = $_POST['username'];
-} elseif (!isset($_SESSION['username'])) {
-    $_SESSION['username'] = null;
 }
 
 $name = $_SESSION['username'];
