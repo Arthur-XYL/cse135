@@ -1,6 +1,9 @@
-h3 {
-    font-size: 20px;
+.cgi-container {
+    display: flex;
+    flex-direction: row;
+    background-color: silver;
 }
-h4 {
-    font-size: 15px;
+
+.cgi-container div {
+    /* padding: 2px; */
 }
