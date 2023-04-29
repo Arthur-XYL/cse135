@@ -1,4 +1,3 @@
-#!/usr/bin/env php-cgi
 <?php
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('America/Los_Angeles'); 
