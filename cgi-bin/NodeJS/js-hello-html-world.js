@@ -1,20 +1,16 @@
 const http = require('http');
-const os = require('os');
 
 const server = http.createServer((req, res) => {
-  const now = new Date().toUTCString();
-
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Content-type', 'text/html');
-  res.write('<html><head><title>Hello NodeJS World</title></head><body>');
-  res.write(`<h1>Hello NodeJS World</h1><hr/>`);
-  res.write(`Hello World<br/>`);
-  res.write(`This program was generated at: ${now}<br/>`);
-  res.write(`Your current IP address is: ${req.socket.remoteAddress}<br/>`);
-  res.write(`</body></html>`);
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.write('<html><head><title>Hello NodeJS World</title></head>');
+  res.write('<body>');
+  res.write('<h1>Hello NodeJS World!</h1>');
+  res.write(`<p>Current Time: ${new Date()}</p>`);
+  res.write(`<p>User's IP address: ${req.socket.remoteAddress}</p>`);
+  res.write('</body></html>');
   res.end();
 });
 
-server.listen(8080, () => {
-  console.log('Server running at http://localhost:8080/');
+server.listen(3000, () => {
+  console.log('Server running on port 3000');
 });
