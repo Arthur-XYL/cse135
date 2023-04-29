@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-
-import os
+import socket   
 from datetime import datetime
-
-# Print HTTP header
-print("Cache-Control: no-cache")
-print("Content-type: text/html\n")
-
+from datetime import date
+today = date.today()
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+today_date = today.strftime("%B %d")
+today_year = today.strftime("%Y")
+today_day = now.strftime('%A')[:3]
 # Print HTML content
-print("<html>")
-print("<head>")
-print("<title>Hello, Python!</title>")
-print("</head>")
-print("<body>")
-print("<h1>Arthur was here - Hello, Python!</h1>")
-print("<p>This page was generated with the Python programming language</p>")
-print("<p>Current Time: {}</p>".format(datetime.now()))
-print("<p>Your IP Address: {}</p>".format(os.environ['REMOTE_ADDR']))
-print("</body>")
-print("</html>")
+print("Hello, Python!")
+print("Emily was here - Hello, Python!")
+print("This page was generated with the Python programming language")
+print("Current Time = " + today_day + " " + today_date + " " + current_time + " " + today_year)
+hostName=socket.gethostname()   
+IPAddress=socket.gethostbyname(hostName)   
+print("Your Computer IP Address is:"+IPAddress)
