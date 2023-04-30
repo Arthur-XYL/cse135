@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const process = require('process');
 
 // Headers
@@ -11,8 +13,6 @@ process.stdout.write("<body>");
 process.stdout.write("<h1>NodeJS Sessions Page 2</h1>");
 process.stdout.write("<table>");
 
-// Check process.env to set HTTP_COOKIE
-process.env.HTTP_COOKIE = '_ga_7MLVG9484E=GS1.1.1682807569.1.1.1682808683.0.0.0; _gid=GA1.2.1833726376.1682818191; PHPSESSID=vf02718gel9ujt3oti8au6abvv; _lr_uf_-uj6ecf=fb04faf1-fbed-4f7f-a663-02ae7f4f2075; _ga_GLD2WPQ9HC=GS1.1.1682829225.3.0.1682829227.0.0.0; _ga=GA1.2.58097484.1681610498; _lr_hb_-uj6ecf%2Fcse135cloud={%22heartbeat%22:1682833465971}; _lr_tabs_-uj6ecf%2Fcse135cloud={%22sessionID%22:0%2C%22recordingID%22:%225-e3fc141d-fbc0-48d8-a0e6-2298e0e679ac%22%2C%22lastActivity%22:1682833467222}';
 const cookie = process.env.HTTP_COOKIE;
 
 if (cookie && cookie !== "destroyed") {

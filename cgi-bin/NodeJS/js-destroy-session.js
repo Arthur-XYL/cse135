@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 process.stdout.write("Cache-Control: no-cache\n");
 process.stdout.write("Set-Cookie: destroyed\n");
 process.stdout.write("Content-type: text/html\n\n");
