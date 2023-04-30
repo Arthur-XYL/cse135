@@ -1,69 +1,32 @@
 #!/usr/bin/env node
 
-const readline = require('readline');
-const session = require('express-session');
-const express = require('express');
-const app = express();
+const http = require('http');
 
-// Use express-session middleware
-app.use(session({
-    secret: 'mysecretkey',
-    resave: false,
-    saveUninitialized: true
-}));
-
-app.locals.username = '';
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-// Headers
-process.stdout.write("Cache-Control: no-cache\n");
-process.stdout.write("Content-type: text/html\n\n"); // Add Content-type header
-
-// Get Name from Environment
-rl.on('line', (input) => {
-    if (input) {
-      const name = input;
-  
-      // Set the app.locals variable
-      if (name.length > 0) {
+const server = http.createServer((req, res) => {
+  if (req.method === 'POST' && req.url === '/cgi-bin/NodeJS/js-sessions-1.js') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    req.on('end', () => {
+      const name = body.split('=')[1];
+      if (name && name.length > 0) {
         app.locals.username = name;
       }
-    }
-  });
-
-  // Body - HTML
-  process.stdout.write("<html>");
-  process.stdout.write("<head><title>NodeJS Sessions</title></head>\n");
-  process.stdout.write("<body>");
-  process.stdout.write("<h1>NodeJS Sessions Page 1</h1>");
-  process.stdout.write("<table>");
-  
-  // Check for the app.locals variable
-  if (app.locals.username)
-  {
-    process.stdout.write(`<tr><td>Cookie:</td><td>${app.locals.username}</td></tr>\n`);
+      res.writeHead(302, { 'Location': '/cgi-bin/NodeJS/js-sessions-1.js' });
+      res.end();
+    });
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('<html><head><title>NodeJS Sessions</title></head><body><h1>NodeJS Sessions Page 1</h1>');
+    res.write('<table><tr><td>Cookie:</td><td>' + req.headers.cookie + '</td></tr></table><br />');
+    res.write('<a href="/cgi-bin/NodeJS/js-sessions-2.js">Session Page 2</a><br />');
+    res.write('<a href="/cgi-forms/js-cgiform.html">NodeJS CGI Form</a><br /><br />');
+    res.write('<form action="/cgi-bin/NodeJS/js-destroy-session.js" method="get">');
+    res.write('<button type="submit">Destroy Session</button></form></body></html>');
+    res.end();
   }
-  else
-  {
-    process.stdout.write("<tr><td>Cookie:</td><td>None</td></tr>\n");
-  }
+});
 
-  process.stdout.write("</table>");
-
-  // Links for other pages
-  process.stdout.write("<br />");
-  process.stdout.write('<a href="/cgi-bin/NodeJS/js-sessions-2.js">Session Page 2</a>');
-  process.stdout.write("<br />");
-  process.stdout.write('<a href="/cgi-forms/js-cgiform.html">NodeJS CGI Form</a>');
-  process.stdout.write("<br /><br />");
-  // Destroy Session button
-  process.stdout.write('<form action="/cgi-bin/NodeJS/js-destroy-session.js" method="get">');
-  process.stdout.write('<button type="submit">Destroy Session</button>');
-  process.stdout.write('</form>');
-
-  process.stdout.write("</body>");
-  process.stdout.write("</html>");
+server.listen(3000);
+console.log('Server running on port 3000');
