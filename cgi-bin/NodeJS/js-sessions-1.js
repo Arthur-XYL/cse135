@@ -1,6 +1,18 @@
 #!/usr/bin/env node
 
 const readline = require('readline');
+const session = require('express-session');
+const express = require('express');
+const app = express();
+
+// Use express-session middleware
+app.use(session({
+    secret: 'mysecretkey',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.locals.username = '';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -9,26 +21,19 @@ const rl = readline.createInterface({
 
 // Headers
 process.stdout.write("Cache-Control: no-cache\n");
+process.stdout.write("Content-type: text/html\n\n"); // Add Content-type header
 
 // Get Name from Environment
-rl.question('Username: ', (username) => {
-  // Check to see if a proper name was sent
-  let name = "";
-  if (username)
-  {
-    name = username;
-  }
-
-  // Set the cookie using a header, add extra \n to end headers
-  if (name.length > 0)
-  {
-    process.stdout.write("Content-type: text/html\n");
-    process.stdout.write(`Set-Cookie: ${name}\n\n`);
-  }
-  else
-  {
-    process.stdout.write("Content-type: text/html\n\n");
-  }
+rl.on('line', (input) => {
+    if (input) {
+      const name = input;
+  
+      // Set the app.locals variable
+      if (name.length > 0) {
+        app.locals.username = name;
+      }
+    }
+  });
 
   // Body - HTML
   process.stdout.write("<html>");
@@ -36,15 +41,11 @@ rl.question('Username: ', (username) => {
   process.stdout.write("<body>");
   process.stdout.write("<h1>NodeJS Sessions Page 1</h1>");
   process.stdout.write("<table>");
-
-  // First check for new Cookie, then Check for old Cookie
-  if (name.length > 0)
+  
+  // Check for the app.locals variable
+  if (app.locals.username)
   {
-    process.stdout.write(`<tr><td>Cookie:</td><td>${name}</td></tr>\n`);
-  }
-  else if (process.env.HTTP_COOKIE !== null && process.env.HTTP_COOKIE !== "destroyed")
-  {
-    process.stdout.write(`<tr><td>Cookie:</td><td>${process.env.HTTP_COOKIE}</td></tr>\n`);
+    process.stdout.write(`<tr><td>Cookie:</td><td>${app.locals.username}</td></tr>\n`);
   }
   else
   {
@@ -59,12 +60,10 @@ rl.question('Username: ', (username) => {
   process.stdout.write("<br />");
   process.stdout.write('<a href="/cgi-forms/js-cgiform.html">NodeJS CGI Form</a>');
   process.stdout.write("<br /><br />");
-
-  // Destroy Cookie button
+  // Destroy Session button
   process.stdout.write('<form action="/cgi-bin/NodeJS/js-destroy-session.js" method="get">');
   process.stdout.write('<button type="submit">Destroy Session</button>');
   process.stdout.write('</form>');
 
   process.stdout.write("</body>");
   process.stdout.write("</html>");
-});
