@@ -12,8 +12,9 @@ process.stdout.write('<hr>');
 
 // Loop over the environment variables and print each variable and its value
 for (const variable in process.env) {
-    process.stdout.write(`<b>${variable}:</b> ${process.env[variable]}<br/>`);
+    process.stdout.write(`<b>${variable}:</b> <br/>`);
 }
+console.log(process.env);
 
 process.stdout.write('</body>');
 process.stdout.write('</html>');
