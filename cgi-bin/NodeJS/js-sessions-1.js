@@ -3,6 +3,7 @@
 const readline = require('readline');
 const session = require('express-session');
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 
 // Use express-session middleware
@@ -12,29 +13,24 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.locals.username = '';
+app.use(bodyParser.urlencoded({ extended: false })); // Parse URL-encoded bodies
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+app.locals.username = '';
 
 // Headers
 process.stdout.write("Cache-Control: no-cache\n");
 process.stdout.write("Content-type: text/html\n\n"); // Add Content-type header
 
 // Get Name from Environment
-rl.on('line', (input) => {
-    if (input) {
-      const name = input;
-      console.log("name");
-      // Set the app.locals variable
-      if (name.length > 0) {
-        app.locals.username = name;
-      }
+app.post('/', (req, res) => {
+    const name = req.body.username;
+    // Set the app.locals variable
+    if (name && name.length > 0) {
+    app.locals.username = name;
     }
-    console.log("fail");
-  });
+    // Redirect to the same page to display the username
+    res.redirect('/');
+});
 
   // Body - HTML
   process.stdout.write("<html>");
