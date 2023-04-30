@@ -22,14 +22,14 @@ process.stdout.write("Cache-Control: no-cache\n");
 process.stdout.write("Content-type: text/html\n\n"); // Add Content-type header
 
 // Get Name from Environment
-app.post('/', (req, res) => {
+app.post('/cgi-bin/NodeJS/js-sessions-1.js', (req, res) => {
     const name = req.body.username;
     // Set the app.locals variable
     if (name && name.length > 0) {
     app.locals.username = name;
     }
     // Redirect to the same page to display the username
-    res.redirect('/');
+    res.redirect('/cgi-bin/NodeJS/js-sessions-1.js');
 });
 
   // Body - HTML
