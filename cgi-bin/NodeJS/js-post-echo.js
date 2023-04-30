@@ -10,6 +10,8 @@ process.stdout.write('Content-type: text/html\n\n');
 process.stdout.write('<html><head><title>POST Message Body</title></head>');
 process.stdout.write('<body><h1 align="center">POST Message Body</h1><hr>');
 
+process.stdout.write('<b>Message Body: </b>');
+
 // Read and print POST data
 const rl = readline.createInterface({
     input: process.stdin,
@@ -17,7 +19,7 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', (input) => {
-    process.stdout.write("<b>Message Body: </b>" + input + "<br/>");
+    process.stdout.write(input + '<br/>');
 });
 
 // End HTML document
