@@ -17,7 +17,7 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', (input) => {
-    process.stdout.write(`Message Body: ${input}<br/>\n`);
+    process.stdout.write("<b>Message Body: </b>" + input + "<br/>");
 });
 
 // End HTML document
