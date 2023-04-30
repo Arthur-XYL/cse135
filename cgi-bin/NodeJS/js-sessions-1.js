@@ -1,4 +1,9 @@
 const readline = require('readline');
+const session = require('express-session');
+const express = require('express');
+const app = express();
+
+app.locals.username = '';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -7,25 +12,21 @@ const rl = readline.createInterface({
 
 // Headers
 process.stdout.write("Cache-Control: no-cache\n");
+process.stdout.write("Content-type: text/html\n\n"); // Add Content-type header
 
 // Get Name from Environment
 rl.question('Username: ', (username) => {
   // Check to see if a proper name was sent
   let name = "";
-  if (username.startsWith('u'))
+  if (username)
   {
-    name = username.slice(9);
+    name = username;
   }
 
-  // Set the cookie using a header, add extra \n to end headers
+  // Set the app.locals variable
   if (name.length > 0)
   {
-    process.stdout.write("Content-type: text/html\n");
-    process.stdout.write(`Set-Cookie: ${name}\n\n`);
-  }
-  else
-  {
-    process.stdout.write("Content-type: text/html\n\n");
+    app.locals.username = name;
   }
 
   // Body - HTML
@@ -35,17 +36,10 @@ rl.question('Username: ', (username) => {
   process.stdout.write("<h1>NodeJS Sessions Page 1</h1>");
   process.stdout.write("<table>");
 
-  // Check process.env to set HTTP_COOKIE
-  process.env.HTTP_COOKIE = '_ga_7MLVG9484E=GS1.1.1682807569.1.1.1682808683.0.0.0; _gid=GA1.2.1833726376.1682818191; PHPSESSID=vf02718gel9ujt3oti8au6abvv; _lr_uf_-uj6ecf=fb04faf1-fbed-4f7f-a663-02ae7f4f2075; _ga_GLD2WPQ9HC=GS1.1.1682829225.3.0.1682829227.0.0.0; _ga=GA1.2.58097484.1681610498; _lr_hb_-uj6ecf%2Fcse135cloud={%22heartbeat%22:1682833465971}; _lr_tabs_-uj6ecf%2Fcse135cloud={%22sessionID%22:0%2C%22recordingID%22:%225-e3fc141d-fbc0-48d8-a0e6-2298e0e679ac%22%2C%22lastActivity%22:1682833467222}';
-  
-  // First check for new Cookie, then Check for old Cookie
-  if (name.length > 0)
+  // Check for the app.locals variable
+  if (app.locals.username)
   {
-    process.stdout.write(`<tr><td>Cookie:</td><td>${name}</td></tr>\n`);
-  }
-  else if (process.env.HTTP_COOKIE !== null && process.env.HTTP_COOKIE !== "destroyed")
-  {
-    process.stdout.write(`<tr><td>Cookie:</td><td>${process.env.HTTP_COOKIE}</td></tr>\n`);
+    process.stdout.write(`<tr><td>Cookie:</td><td>${app.locals.username}</td></tr>\n`);
   }
   else
   {
@@ -61,7 +55,7 @@ rl.question('Username: ', (username) => {
   process.stdout.write('<a href="/cgi-forms/js-cgiform.html">NodeJS CGI Form</a>');
   process.stdout.write("<br /><br />");
 
-  // Destroy Cookie button
+  // Destroy Session button
   process.stdout.write('<form action="/cgi-bin/NodeJS/js-destroy-session.js" method="get">');
   process.stdout.write('<button type="submit">Destroy Session</button>');
   process.stdout.write('</form>');
