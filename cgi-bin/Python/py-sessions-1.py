@@ -19,25 +19,27 @@ cookie = cookies.SimpleCookie()
 cookie.load(os.environ.get("HTTP_COOKIE", ""))
 session_id = None
 
+name = None
+flag = 3
 
-if "PYSESSID" in cookie:
+if "PYSESSID" in cookie: #have session before, why does it check that?
+    flag = cookie["PYSESSID"].value
     session_id = cookie["PYSESSID"].value
-else:
+    
+else: #creates new session; reads from form
+    flag = 2
     session_id = str(uuid4())
-
+    
+    # Store Data in that Python Session
+    form = cgi.FieldStorage()
+    name = form.getvalue("username", None)
 
 session_path = session_dir / session_id
 
-
-# Store Data in that Python Session
-form = cgi.FieldStorage()
-name = form.getvalue("username", None)
-
-
-if name is not None:
+if flag == 2:
     with session_path.open("w") as session_file:
         session_file.write(name)
-elif session_path.exists():
+if (flag == 1) and (session_path.exists()):
     with session_path.open("r") as session_file:
         name = session_file.read().strip()
 
@@ -56,6 +58,7 @@ print("<body>")
 
 
 print("<h1>Python Sessions Page 1</h1>")
+print(flag)
 
 if name:
     print(f"<p><b>Name:</b> {html.escape(name)}")
