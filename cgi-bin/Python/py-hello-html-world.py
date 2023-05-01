@@ -3,7 +3,8 @@
 print("Content-Type: text/html") # Set the content type of the response
 print() # Print a blank line to indicate the end of the header
 
-import socket   
+import socket 
+import os  
 from datetime import datetime
 from datetime import date
 today = date.today()
@@ -21,8 +22,8 @@ print("<h1>Hello, Python!</h1>")
 print("<p>Emily was here - Hello, Python!</p>")
 print("<p>This page was generated with the Python programming language</p>")
 print("<p>Current Time = " + today_day + " " + today_date + " " + current_time + " " + today_year + "</p>")
-hostName=socket.gethostname()   
-IPAddress=socket.gethostbyname(hostName)   
-print("<p>Your Computer IP Address is:"+IPAddress+"</p>")
+
+ip_address = os.environ.get("REMOTE_ADDR")  
+print("<p>Your Computer IP Address is:"+ip_address+"</p>")
 print("</body>")
 print("</html>")
