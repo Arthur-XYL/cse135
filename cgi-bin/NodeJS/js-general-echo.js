@@ -3,17 +3,24 @@
 const readline = require('readline');
 
 // Print HTTP headers
-process.stdout.write("Cache-Control: no-cache");
-process.stdout.write("Content-type: text/html\n");
+process.stdout.write("Cache-Control: no-cache\n");
+process.stdout.write("Content-type: text/html\n\n");
 
 // Start HTML document
-process.stdout.write("<html><head><title>General Request Echo</title></head>");
-process.stdout.write("<body><h1 align=\"center\">General Request Echo</h1><hr>");
+process.stdout.write('<html><head><title>General Request Echo</title></head>');
+process.stdout.write('<body><h1 align="center">General Request Echo</h1><hr>');
+
+// From process.env we can set the environment variables:
+process.env.SERVER_PROTOCOL = 'HTTP/1.1';
+process.env.REQUEST_METHOD = 'GET';
+process.env.QUERY_STRING = '';
 
 // Print HTTP protocol, method and query string
 process.stdout.write(`<p><b>HTTP Protocol:</b> ${process.env.SERVER_PROTOCOL}</p>`);
 process.stdout.write(`<p><b>HTTP Method:</b> ${process.env.REQUEST_METHOD}</p>`);
 process.stdout.write(`<p><b>Query String:</b> ${process.env.QUERY_STRING}</p>`);
+
+process.stdout.write(`<b>Message Body:</b>`);
 
 // Read and print message body from standard input
 const rl = readline.createInterface({
@@ -22,7 +29,7 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', (line) => {
-  process.stdout.write(`<p><b>Message Body:</b> ${line}</p>`);
+    process.stdout.write(line + + '<br/>');
 });
 
 // End HTML document

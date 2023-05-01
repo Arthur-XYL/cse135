@@ -22,3 +22,6 @@ for (const key in query) {
     process.stdout.write('<tr><td>' + key + '</td><td>' + value + '</td></tr>');
 }
 process.stdout.write('</table>');
+
+// End HTML document
+process.stdout.write('</body></html>');

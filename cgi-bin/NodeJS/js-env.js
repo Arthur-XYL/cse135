@@ -13,3 +13,6 @@ process.stdout.write('<hr>');
 for (const variable in process.env) {
     process.stdout.write(`<b>${variable}:</b> ${process.env[variable]}<br/>`);
 }
+
+process.stdout.write('</body>');
+process.stdout.write('</html>');

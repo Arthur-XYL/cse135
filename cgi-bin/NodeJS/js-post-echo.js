@@ -24,4 +24,3 @@ rl.on('line', (input) => {
 
 // End HTML document
 process.stdout.write('</body></html>');
-
