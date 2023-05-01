@@ -63,75 +63,97 @@ process.stdout.write("</body>");
 process.stdout.write("</html>");
 
 
-// const session = require('express-session');
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const app = express();
 
-// app.use(session({
-//   secret: 'mysecretkey',
-//   resave: false,
-//   saveUninitialized: true
-// }));
 
-// app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.post('../cgi-bin/NodeJS/js-sessions-1.js', (req, res) => {
-//   const name = req.body.username;
-//   if (name) {
-//     req.session.username = name;
+
+
+// const cgi = require('node-cgi');
+
+// cgi(async (req, res) => {
+//   if (req.method === 'POST' && req.headers['content-type'] === 'application/json') {
+//     try {
+//       const body = await new Promise((resolve, reject) => {
+//         let data = '';
+//         req.on('data', chunk => {
+//           data += chunk.toString();
+//         });
+//         req.on('end', () => {
+//           resolve(data);
+//         });
+//         req.on('error', reject);
+//       });
+
+//       const jsonData = JSON.parse(body);
+//       const name = jsonData.name;
+
+//       // Set headers
+//       res.setHeader('Cache-Control', 'no-cache');
+//       res.setHeader('Content-Type', 'text/html');
+
+//       // Set the cookie using a header
+//       if (name) {
+//         res.setHeader('Set-Cookie', `name=${name}`);
+//       }
+
+//       // Generate HTML response
+//       generateHTML(res, req.headers.cookie, name);
+//       res.end();
+//     } catch (error) {
+//       res.statusCode = 400;
+//       res.setHeader('Content-Type', 'text/plain');
+//       res.end('Bad Request');
+//     }
+//   } else {
+//     res.statusCode = 405;
+//     res.setHeader('Content-Type', 'text/plain');
+//     res.end('Method Not Allowed');
 //   }
-//   res.redirect('../cgi-bin/NodeJS/js-sessions-1.js');
 // });
 
-// app.get('/destroy-session', (req, res) => {
-//   req.session.destroy();
-//   res.redirect('/');
-// });
+// function generateHTML(res, oldCookie, newName) {
+//   // Body - HTML
+//   res.write('<html>');
+//   res.write('<head><title>C Sessions</title></head>\n');
+//   res.write('<body>');
+//   res.write('<h1>C Sessions Page 1</h1>');
+//   res.write('<table>');
 
-// app.get('/', (req, res) => {
-//   res.send(`
-//         <!DOCTYPE html>
-//         <html>
-//         <head>
-//             <title>NodeJS Sessions</title>
-//         </head>
-//         <body>
-//             <h1>NodeJS Sessions Page 1</h1>
-//             <table>
-//                 <tr>
-//                     <td>Username:</td>
-//                     <td id="usernameDisplay">${req.session.username || 'None'}</td>
-//                 </tr>
-//             </table>
-//             <br />
-//             <form id="usernameForm" action="/set-username" method="post">
-//                 <input type="text" name="username" placeholder="Enter username" />
-//                 <button type="submit">Set username</button>
-//             </form>
-//             <br />
-//             <a href="/destroy-session">Destroy Session</a>
-//             <br />
-//             <script>
-//                 document.getElementById('usernameForm').addEventListener('submit', (e) => {
-//                     e.preventDefault();
+//   // First check for new Cookie, then check for old Cookie
+//   if (newName) {
+//     res.write(`<tr><td>Cookie:</td><td>${newName}</td></tr>\n`);
+//   } else if (oldCookie && oldCookie !== 'destroyed') {
+//     res.write(`<tr><td>Cookie:</td><td>${oldCookie}</td></tr>\n`);
+//   } else {
+//     res.write('<tr><td>Cookie:</td><td>None</td></tr>\n');
+//   }
 
-//                     const form = e.target;
-//                     const formData = new FormData(form);
+//   res.write('</table>');
 
-//                     fetch(form.action, {
-//                         method: form.method,
-//                         body: formData,
-//                     }).then(() => {
-//                         window.location.reload();
-//                     });
-//                 });
-//             </script>
-//         </body>
-//         </html>
-//     `);
-// });
+//   // Links for other pages
+//   res.write('<br />');
+//   res.write('<a href="/c-sessions-2">Session Page 2</a>');
+//   res.write('<br />');
+//   res.write('<a href="/c-cgiform.html">C CGI Form</a>');
+//   res.write('<br /><br />');
 
-// app.listen(3000, () => {
-//   console.log('Server listening on port 3000');
+//   // Destroy Cookie button
+//   res.write('<form action="/c-destroy-session" method="get">');
+//   res.write('<button type="submit">Destroy Session</button>');
+//   res.write('</form>');
+
+//   // Submit name form
+//   res.write('<form action="/" method="post">');
+//   res.write('<label for="name">Name:</label>');
+//   res.write('<input type="text" id="name" name="name">');
+//   res.write('<button type="submit">Submit</button>');
+//   res.write('</form>');
+
+//   res.write('</body>');
+//   res.write('</html>');
+// }
+
+// const port = process.env.PORT || 3000;
+// server.listen(port, () => {
+//   console.log(`Server running at http://localhost:${port}`);
 // });
