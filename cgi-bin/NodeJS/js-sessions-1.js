@@ -39,7 +39,7 @@ app.post('../cgi-bin/NodeJS/js-sessions-1.js', (req, res) => {
   process.stdout.write("<table>");
   
   // Check for the app.locals variable
-  if (app.locals.username)
+  if (app.locals.username.length > 0)
   {
     process.stdout.write(`<tr><td>Cookie:</td><td>${app.locals.username}</td></tr>\n`);
   }
