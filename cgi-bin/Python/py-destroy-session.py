@@ -15,7 +15,7 @@ session_dir.mkdir(parents=True, exist_ok=True)
 cookie = cookies.SimpleCookie()
 cookie.load(os.environ.get("HTTP_COOKIE", ""))
 session_id = None
-
+    
 if "PYSESSID" in cookie:
     session_id = cookie["PYSESSID"].value
 else:
