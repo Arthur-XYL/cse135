@@ -14,7 +14,7 @@ process.stdout.write('<title>Hello, Node.js!</title>');
 process.stdout.write('</head>');
 process.stdout.write('<body>');
 
-process.stdout.write('<h1>Arthur was here - Hello, Node.js!</h1>');
+process.stdout.write('<h1>Avalanche was here - Hello, Node.js!</h1>');
 process.stdout.write('<p>This page was generated with the Node.js programming language</p>');
 
 process.stdout.write(`<p>Current Time: ${date}</p>`);

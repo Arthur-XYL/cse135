@@ -8,7 +8,7 @@ puts "<title>Hello, Ruby!</title>"
 puts "</head>"
 puts "<body>"
 
-puts "<h1>Arthur was here - Hello, Ruby!</h1>"
+puts "<h1>Avalanche was here - Hello, Ruby!</h1>"
 puts "<p>This page was generated with the Ruby programming language</p>"
 
 date = Time.now

@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('America/Los_Angeles'); 
 
-echo "<h1>Arthur Hello World</h1>";
+echo "<h1>Avalanche Hello World</h1>";
 echo "<p>This page was generated with the PHP programming language</p>";
 echo "<p>Current Time: " . date('Y-m-d') . "</p>";
 
