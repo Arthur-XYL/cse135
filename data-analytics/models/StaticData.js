@@ -21,3 +21,5 @@ const StaticDataSchema = new mongoose.Schema({
 
 exports.StaticData = mongoose.model('StaticData', StaticDataSchema);
 
+//const zgRef = document.querySelector('zing-grid');
+//zgRef.setData(StaticDataSchema);
