@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Initial Browser Data</title>
+        <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+        <script src="database.js" defer></script>        
+    </head>
+    <body>
+        <zing-grid id="static-container"
+            caption="Static Data"
+            sorter
+            search
+            pager
+            page-size=5
+            data='[]'>
+        </zing-grid>
+        <zing-grid id="performance-container"
+            caption="Performance Data"
+            sorter
+            search
+            pager
+            page-size=5
+            data='[]'>
+        </zing-grid>
+        <zing-grid id="activity-container"
+            caption="Activity Data"
+            sorter
+            search
+            pager
+            page-size=5
+            data='[]'>
+        </zing-grid>
+    </body>
+</html>
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Database</title>
+    <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+    <style>
+        /* Set the height of the grid container */
+        zing-grid {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <zing-grid caption="Database" data='[]' theme="default-dark">
+        <zg-colgroup>
+            <zg-column index="id" header="ID"></zg-column>
+            <zg-column index="userAgent" header="User Agent"></zg-column>
+            <zg-column index="language" header="Language"></zg-column>
+            <zg-column index="cookiesEnabled" header="Cookies Enabled"></zg-column>
+            <zg-column index="javaScriptEnabled" header="JavaScript Enabled"></zg-column>
+            <zg-column index="screenDimensions.width" header="Screen Width"></zg-column>
+            <zg-column index="screenDimensions.height" header="Screen Height"></zg-column>
+            <zg-column index="windowDimensions.width" header="Window Width"></zg-column>
+            <zg-column index="windowDimensions.height" header="Window Height"></zg-column>
+            <zg-column index="networkConnection" header="Network Connection"></zg-column>
+            <zg-column index="imagesEnabled" header="Images Enabled"></zg-column>
+            <zg-column index="cssEnabled" header="CSS Enabled"></zg-column>
+        </zg-colgroup>
+    </zing-grid>
+
+    <script>
+        const zgRef = document.querySelector('zing-grid');
+
+        // Fetch data from the REST endpoint and populate the grid
+        fetch('/your-rest-endpoint') // Replace with your actual REST endpoint
+            .then(response => response.json())
+            .then(data => {
+                zgRef.setData(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>-->
