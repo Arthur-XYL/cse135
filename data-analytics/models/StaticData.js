@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const StaticDataSchema = new mongoose.Schema({
-    id: { type: String },
+    sessionId: { type: String },
     userAgent: { type: String },
     language: { type: String },
     cookiesEnabled: { type: Boolean },
@@ -20,6 +20,3 @@ const StaticDataSchema = new mongoose.Schema({
 });
 
 exports.StaticData = mongoose.model('StaticData', StaticDataSchema);
-
-//const zgRef = document.querySelector('zing-grid');
-//zgRef.setData(StaticDataSchema);

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PerformanceDataSchema = new mongoose.Schema({
-  id: { type: String, required: true },
+  sessionId: { type: String, required: true },
   wholeTimingObject: {
     type: Map,
     of: mongoose.Schema.Types.Mixed,

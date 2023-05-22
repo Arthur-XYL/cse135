@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ZingGrid Example</title>
+    <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.zinggrid.com/zinggrid.min.css" type="text/css">
+    <style>
+        #zing-grid {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <zing-grid id="zing-grid"></zing-grid>
+    
+    <script>
+        fetch('https://cse135.cloud/api/static_data')
+            .then(response => response.json())
+            .then(data => {
+                const grid = document.querySelector('#zing-grid');
+                grid.data = data;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

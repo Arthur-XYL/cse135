@@ -11,8 +11,10 @@ app.use('/static_data', static_data);
 app.use('/performance_data', performance_data);
 app.use('/activity_data', activity_data);
 
+const uri = "mongodb+srv://yxiong:CYsxs5834XYL@cluster0.fwiefdo.mongodb.net/UserData?retryWrites=true&w=majority";
+
 mongoose
-    .connect('mongodb://127.0.0.1:27017/UserData')
+    .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         app.listen(3001, () => {
             console.log("Node is running on port 3001");

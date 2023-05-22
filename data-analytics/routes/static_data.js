@@ -24,12 +24,43 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const staticData = new StaticData(req.body);
-        await staticData.save();
-        res.status(201).send(staticData);
+        const {
+            sessionId,
+            userAgent,
+            language,
+            cookiesEnabled,
+            javaScriptEnabled,
+            screenDimensions,
+            windowDimensions,
+            networkConnection,
+            imagesEnabled,
+            cssEnabled,
+        } = req.body;
+
+        const existingData = await StaticData.findOne({
+            sessionId,
+            userAgent,
+            language,
+            cookiesEnabled,
+            javaScriptEnabled,
+            screenDimensions,
+            windowDimensions,
+            networkConnection,
+            imagesEnabled,
+            cssEnabled,
+        });
+
+        if (existingData) {
+            return res.status(200).json({ message: "The entry already exists." });
+        } else {
+            const staticData = new StaticData(req.body);
+            await staticData.save();
+            return res.status(201).send(staticData);
+        }
     } catch (error) {
-        res.status(400).send(error);
+        return res.status(400).send(error);
     }
 });
+
 
 module.exports = router;

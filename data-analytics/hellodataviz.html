@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Line Chart with ZingChart</title>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        window.onload = function() {
+            fetch('https://cse135.cloud/api/performance_data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Group by sessionId
+                    const groupedData = data.reduce((acc, doc) => {
+                        if (!acc[doc.sessionId]) {
+                            acc[doc.sessionId] = [];
+                        }
+                        acc[doc.sessionId].push(doc.totalLoadTime);
+                        return acc;
+                    }, {});
+
+                    // Transform data to ZingChart format
+                    const transformedData = Object.entries(groupedData).map(([sessionId, loadTimes]) => ({
+                        text: sessionId,
+                        values: loadTimes,
+                    }));
+
+                    // Render ZingChart
+                    zingchart.render({
+                        id: 'lineChart',
+                        data: {
+                            type: 'line',
+                            series: transformedData,
+                            title: {
+                                text: "Total Load Time"
+                            },
+                        },
+                        height: '500',
+                        width: '700',
+                    });
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+
+            fetch('https://cse135.cloud/api/activity_data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    let sessionCounts = new Map();
+                    for (let doc of data) {
+                        let count = doc.mouseMovements.length;
+                        let sessionData = sessionCounts.get(doc.sessionId) || { high: count, low: count };
+
+                        sessionData.high = Math.max(sessionData.high, count);
+                        sessionData.low = Math.min(sessionData.low, count);
+
+                        sessionCounts.set(doc.sessionId, sessionData);
+                    }
+
+                    let sessions = Array.from(sessionCounts.keys());
+                    let highCounts = Array.from(sessionCounts.values()).map(obj => obj.high);
+                    let lowCounts = Array.from(sessionCounts.values()).map(obj => obj.low);
+
+                    zingchart.render({
+                        id: 'barChart',
+                        data: {
+                            type: 'bar',
+                            plot: {
+                                animation: {
+                                    effect: "ANIMATION_EXPAND_BOTTOM",
+                                    method: "ANIMATION_REGULAR",
+                                    sequence: "ANIMATION_BY_PLOT",
+                                    speed: "ANIMATION_FAST"
+                                }
+                            },
+                            title: {
+                                text: "Mouse Movements"
+                            },
+                            scaleX: {
+                                values: sessions
+                            },
+                            series: [
+                                {
+                                    text: 'High',
+                                    values: highCounts
+                                },
+                                {
+                                    text: 'Low',
+                                    values: lowCounts
+                                }
+                            ]
+                        },
+                        height: 400,
+                        width: "100%"
+                    });
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+            
+            fetch('https://cse135.cloud/api/static_data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Transform data to ZingChart format
+                    const screenDimensionsCount = new Map();
+                    for (let doc of data) {
+                        if (doc.screenDimensions && doc.screenDimensions.width && doc.screenDimensions.height) {
+                            const screenDimensionStr = `${doc.screenDimensions.width}x${doc.screenDimensions.height}`;
+                            const count = screenDimensionsCount.get(screenDimensionStr) || 0;
+                            screenDimensionsCount.set(screenDimensionStr, count + 1);
+                        }
+                    }
+                    const transformedData = Array.from(screenDimensionsCount.entries()).map(([key, value]) => ({
+                        text: key,
+                        values: [value],
+                    }));
+                    console.log('Transformed data:', transformedData);
+
+                    zingchart.render({
+                        id: 'pieChart',
+                        data: {
+                            type: 'pie',
+                            series: transformedData,
+                            backgroundColor: '#F0F0F0',
+                            title: {
+                                text: "Screen Dimension"
+                            },
+                            plot: {
+                                valueBox: {
+                                    placement: 'out', // or 'in' to place the labels inside the pie slices
+                                    text: '%t: %v (%npv%)', // Here is the string template
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: 'bold',
+                                    fontSize: '14',
+                                    fontColor: '#000000',
+                                }
+                            },
+                        },
+                        height: '500',
+                        width: '700',
+                    });
+
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        };
+    </script>
+</head>
+<body>
+    <div id="lineChart"></div>
+    <div id="barChart"></div>
+    <div id="pieChart"></div>
+</body>
+</html>
