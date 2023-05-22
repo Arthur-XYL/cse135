@@ -13,20 +13,30 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Group by sessionId
-                    const groupedData = data.reduce((acc, doc) => {
-                        if (!acc[doc.sessionId]) {
-                            acc[doc.sessionId] = [];
-                        }
-                        acc[doc.sessionId].push(doc.totalLoadTime);
-                        return acc;
-                    }, {});
+                    // Initialize arrays for each series
+                    const pageLoadStartTimes = [];
+                    const pageLoadEndTimes = [];
+                    const totalLoadTimes = [];
 
-                    // Transform data to ZingChart format
-                    const transformedData = Object.entries(groupedData).map(([sessionId, loadTimes]) => ({
-                        text: sessionId,
-                        values: loadTimes,
-                    }));
+                    // Populate the arrays
+                    for (let doc of data) {
+                        if (doc.pageLoadStart) {
+                            pageLoadStartTimes.push(doc.pageLoadStart);
+                        }
+                        if (doc.pageLoadEnd) {
+                            pageLoadEndTimes.push(doc.pageLoadEnd);
+                        }
+                        if (doc.totalLoadTime) {
+                            totalLoadTimes.push(doc.totalLoadTime);
+                        }
+                    }
+
+                    // Prepare data for ZingChart
+                    const transformedData = [
+                        { values: pageLoadStartTimes, text: 'Page Load Start' },
+                        { values: pageLoadEndTimes, text: 'Page Load End' },
+                        { values: totalLoadTimes, text: 'Total Load Time' },
+                    ];
 
                     // Render ZingChart
                     zingchart.render({
@@ -35,7 +45,20 @@
                             type: 'line',
                             series: transformedData,
                             title: {
-                                text: "Total Load Time"
+                                text: "Load Time"
+                            },
+                            scaleX: {
+                                label: {
+                                    text: 'Data Points'
+                                }
+                            },
+                            scaleY: {
+                                label: {
+                                    text: 'Time (ms)'
+                                },
+                                // Limit the y-axis to a maximum value of 50
+                                "itemsOverlap": true,
+                                "maxItems": 8,
                             },
                         },
                         height: '500',
