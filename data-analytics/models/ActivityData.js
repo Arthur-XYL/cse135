@@ -37,8 +37,8 @@ const ActivityDataSchema = new mongoose.Schema({
         end: { type: Date },
         duration: { type: Number },
     }],
-    pageEntries: [{ _id: false, type: Date }],
-    pageExits: [{ _id: false, type: Date }],
+    pageEntries: { _id: false, type: Date },
+    pageExits: { _id: false, type: Date },
     pageUrls: [{ _id: false, type: String }],
 });
 

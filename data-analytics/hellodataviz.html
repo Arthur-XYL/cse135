@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Line Chart with ZingChart</title>
+    <title>User Data Chart</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        #lineChart, #barChart, #pieChart {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <script>
         window.onload = function() {
@@ -184,6 +204,7 @@
     </script>
 </head>
 <body>
+    <h1>User Data Chart</h1>
     <div id="lineChart"></div>
     <div id="barChart"></div>
     <div id="pieChart"></div>

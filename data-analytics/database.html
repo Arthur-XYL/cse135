@@ -3,6 +3,19 @@
     <head>
         <meta charset="utf-8">
         <title>User Data</title>
+        <style>
+            h1 {
+                color: #333;
+                text-align: center;
+            }
+            zing-grid {
+                display: block;
+                margin: 20px auto; 
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+                border-radius: 10px; 
+                overflow: hidden; 
+            }
+        </style>
         <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
         <script defer>
             // Function to fetch data using GET request and update ZingGrid
@@ -38,6 +51,7 @@
         </script>        
     </head>
     <body>
+        <h1>User Data</h1>
         <zing-grid id="static-container"
             caption="Static Data"
             sorter
@@ -46,7 +60,6 @@
             page-size=5
             data='[]'>
         </zing-grid>
-        <br>
         <zing-grid id="performance-container"
             caption="Performance Data"
             sorter
@@ -55,7 +68,6 @@
             page-size=5
             data='[]'>
         </zing-grid>
-        <br>
         <zing-grid id="activity-container"
             caption="Activity Data"
             sorter

@@ -12,6 +12,24 @@ function getCookie(name) {
     return match ? match[2] : null;
 }
 
+function storeData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+async function sendData(key, url) {
+    const data = JSON.parse(localStorage.getItem(key));
+    if (data) {
+        await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        localStorage.removeItem(key);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
     function get_static_data() {
         return new Promise((resolve, reject) => {
@@ -21,8 +39,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 userAgent: navigator.userAgent,
                 language: navigator.language,
                 cookiesEnabled: navigator.cookieEnabled,
-                javaScriptEnabled: true, // If this script is running, JavaScript is enabled
-                imagesEnabled: null, // Will be set later
+                javaScriptEnabled: true, 
+                imagesEnabled: null,
                 cssEnabled: null,
                 screenDimensions: {
                     width: window.screen.width,
@@ -59,15 +77,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     async function static_data() {
         const data = await get_static_data();
-        await fetch("https://cse135.cloud/api/static_data", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
-            .then((response) => { console.log(response); })
-            .catch((error) => { console.log(error); });
+        storeData("static_data", data);
+        sendData("static_data", "https://cse135.cloud/api/static_data");
     }
 
     static_data();
@@ -91,21 +102,14 @@ window.addEventListener('load', (event) => {
 
     async function performance_data() {
         const data = get_performance_data();
-        await fetch("https://cse135.cloud/api/performance_data", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
-            .then((response) => { console.log(response); })
-            .catch((error) => { console.log(error); });
+        storeData("performance_data", data);
+        sendData("performance_data", "https://cse135.cloud/api/performance_data");
     }
 
     setTimeout(performance_data, 1000);
 });
 
-let pageData = {
+let activityData = {
     sessionId: setSessionId(),
     thrown_errors: [],
     mouseMovements: [],
@@ -113,68 +117,74 @@ let pageData = {
     scrolls: [],
     keyEvents: [],
     idleTimes: [],
-    pageEntries: [new Date()],
-    pageExits: [],
-    pageUrls: [window.location.href],
+    pageEntries: new Date(),
+    pageExits: null,
+    pageUrls: window.location.href,
 };
-
 let idleStart = new Date();
 
 window.onerror = function (message, source, lineno, colno, error) {
-    pageData.thrown_errors.push({ message, source, lineno, colno, error });
+    activityData.thrown_errors.push({ message, source, lineno, colno, error });
 };
 
-document.addEventListener('mousemove', function (event) {
-    pageData.mouseMovements.push({ x: event.clientX, y: event.clientY });
-    idleStart = new Date();  // reset the idle start time
+window.addEventListener('beforeunload', function (event) {
+    // Calculate page exit time and add to activityData
+    const pageExitTime = new Date();
+    activityData.pageExits = pageExitTime;
+    // set idle time
+    setIdleTime();
+
+    storeData("activityData", activityData);
+    // send data upon exit
+    sendActivityData();
 });
 
-document.addEventListener('click', function (event) {
-    pageData.clicks.push({ x: event.clientX, y: event.clientY, button: event.button });
-    idleStart = new Date();  // reset the idle start time
-});
-
-document.addEventListener('scroll', function () {
-    pageData.scrolls.push({ x: window.scrollX, y: window.scrollY });
-    idleStart = new Date();  // reset the idle start time
-});
-
-document.addEventListener('keydown', function (event) {
-    pageData.keyEvents.push({ key: event.key, type: 'down' });
-    idleStart = new Date();  // reset the idle start time
-});
-
-document.addEventListener('keyup', function (event) {
-    pageData.keyEvents.push({ key: event.key, type: 'up' });
-    idleStart = new Date();  // reset the idle start time
-});
-
-// Function to send data
-async function sendData() {
+function setIdleTime() {
     const now = new Date();
-
-    // Calculate idle time
     const idleTime = now - idleStart;
 
     // If idle for more than 2 seconds, update idle time
     if (idleTime > 2000) {
-        pageData.idleTimes.push({ start: idleStart, end: now, duration: idleTime });
+        activityData.idleTimes.push({ start: idleStart, end: now, duration: idleTime });
     }
+}
 
-    // Update page data with page exit time
-    pageData.pageExits.push(now);
+document.addEventListener('mousemove', function (event) {
+    activityData.mouseMovements.push({ x: event.clientX, y: event.clientY });
+    setIdleTime();
+    idleStart = new Date();  // reset the idle start time
+});
 
-    // Send data to the server
-    await fetch("https://cse135.cloud/api/activity_data", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(pageData),
-    });
+document.addEventListener('click', function (event) {
+    activityData.clicks.push({ x: event.clientX, y: event.clientY, button: event.button });
+    setIdleTime();
+    idleStart = new Date();  // reset the idle start time
+});
 
-    // Reset page data
-    pageData = {
+document.addEventListener('scroll', function () {
+    activityData.scrolls.push({ x: window.scrollX, y: window.scrollY });
+    setIdleTime();
+    idleStart = new Date();  // reset the idle start time
+});
+
+document.addEventListener('keydown', function (event) {
+    activityData.keyEvents.push({ key: event.key, type: 'down' });
+    setIdleTime();
+    idleStart = new Date();  // reset the idle start time
+});
+
+document.addEventListener('keyup', function (event) {
+    activityData.keyEvents.push({ key: event.key, type: 'up' });
+    setIdleTime();
+    idleStart = new Date();  // reset the idle start time
+});
+
+// Function to send data
+async function sendActivityData() {
+    setIdleTime();
+    sendData("activityData", "https://cse135.cloud/api/activity_data");
+    // Reset activity data
+    activityData = {
         sessionId: setSessionId(),
         thrown_errors: [],
         mouseMovements: [],
@@ -182,13 +192,17 @@ async function sendData() {
         scrolls: [],
         keyEvents: [],
         idleTimes: [],
-        pageEntries: [new Date()],
-        pageExits: [],
-        pageUrls: [window.location.href],
+        pageEntries: activityData.pageEntries,
+        pageExits: null,
+        pageUrls: window.location.href,
     };
-    idleStart = new Date();
 }
 
-// Call sendData every 5 seconds
-setInterval(sendData, 5000);
+// Save activity data every 1 second
+setInterval(function() {
+    storeData("activityData", activityData);
+}, 1000);
 
+
+// Call sendActivityData every 60 seconds
+setInterval(sendActivityData, 60000);
