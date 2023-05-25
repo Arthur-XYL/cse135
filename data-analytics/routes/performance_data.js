@@ -32,4 +32,32 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedEntry = await PerformanceData.findByIdAndUpdate(id, req.body, { new: true });
+        if(updatedEntry){
+            res.status(200).json(updatedEntry);
+        } else {
+            res.status(404).json({ message: "Entry not found." });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedEntry = await PerformanceData.findByIdAndRemove(id);
+        if(deletedEntry){
+            res.status(200).json({ message: "Entry deleted successfully." });
+        } else {
+            res.status(404).json({ message: "Entry not found." });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;
