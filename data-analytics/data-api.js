@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
 
 const static_data = require('./routes/static_data');
 const performance_data = require('./routes/performance_data');
@@ -7,6 +8,7 @@ const activity_data = require('./routes/activity_data');
 
 const app = express();
 app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 app.use('/static_data', static_data);
 app.use('/performance_data', performance_data);
 app.use('/activity_data', activity_data);
